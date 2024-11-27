@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/values/values.dart';
 import '../home/home_page.dart';
+import 'splash_controller.dart';
 import 'widgets/widgets.dart';
 
 class SplashPage extends StatefulWidget {
@@ -15,42 +16,41 @@ const _duration = Duration(seconds: 5);
 const _transitionDuration = Duration(milliseconds: 800);
 
 class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
-  late Animation<double> _scaleAnimation;
-  late AnimationController _animationController;
+  late SplashController _controller;
 
   @override
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
-      vsync: this,
-      duration: _duration,
-    )..addListener(_startListener);
+    _controller = SplashControllerImpl()
+      ..init(duration: _duration, vsync: this)
+      ..startAnimation();
 
-    _scaleAnimation = CurvedAnimation(
-      curve: Curves.easeInOut,
-      parent: _animationController,
-    );
-
-    _animationController.forward();
+    _checkAnimation();
   }
 
-  void _startListener() async {
-    if (_animationController.isCompleted) {
-      await Future.delayed(_transitionDuration);
+  void _checkAnimation() {
+    final animation = _controller.animationController;
 
-      if (!mounted) return;
+    animation.addListener(() async {
+      if (animation.isCompleted) {
+        await Future.delayed(_transitionDuration);
 
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          transitionDuration: _transitionDuration,
-          pageBuilder: (_, __, ___) => const HomePage(),
-          transitionsBuilder: (_, animation, __, child) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-        ),
-      );
-    }
+        _navigateToHome();
+      }
+    });
+  }
+
+  void _navigateToHome() {
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        transitionDuration: _transitionDuration,
+        pageBuilder: (_, __, ___) => const HomePage(),
+        transitionsBuilder: (_, animation, __, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+      ),
+    );
   }
 
   @override
@@ -58,11 +58,11 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     return Scaffold(
       backgroundColor: AppColors.primary,
       body: AnimatedBuilder(
-        animation: _animationController,
+        animation: _controller.animationController,
         builder: (_, __) {
           return SplashWidget(
-            opacity: _scaleAnimation,
-            width: _animationController.value * 198,
+            opacity: _controller.scaleAnimation,
+            width: _controller.animationController.value * 198,
           );
         },
       ),
@@ -71,7 +71,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 }
