@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../core/values/values.dart';
+
 import 'splash/splash_page.dart';
 
 class App extends StatelessWidget {
@@ -10,7 +11,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: AppStrings.appName,
-      home: SplashPage(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(useMaterial3: false),
+      home: const SplashPage(),
     );
   }
 }
