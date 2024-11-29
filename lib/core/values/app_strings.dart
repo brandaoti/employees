@@ -2,6 +2,7 @@ class AppStrings {
   static const String appName = 'Employees';
 
   static const String loading = "Carregando...";
+  static const String somethingWentWrong = "Algo deu errado";
   static const String onRetry = "Clique para recarregar a página";
   static const String noEmployeeFound = "Nenhum funcionário encontrado";
 

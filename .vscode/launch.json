@@ -6,25 +6,21 @@
     "configurations": [
         {
             "name": "employees",
-            "cwd": "employees",
             "request": "launch",
             "type": "dart",
             "toolArgs": [
-                "dev",
                 "--dart-define-from-file",
-                "dev.env"
+                ".env.dev.json"
             ]
         },
         {
             "name": "employees (profile mode)",
-            "cwd": "employees",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
             "name": "employees (release mode)",
-            "cwd": "employees",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

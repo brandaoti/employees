@@ -5,9 +5,12 @@ import '../../../core/values/values.dart';
 class ShowErrorWidget extends StatelessWidget {
   final VoidCallback? onRetry;
 
+  final String? errorMessage;
+
   const ShowErrorWidget({
     super.key,
     this.onRetry,
+    this.errorMessage,
   });
 
   @override
@@ -18,6 +21,13 @@ class ShowErrorWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            if (errorMessage != null) ...[
+              Text(
+                errorMessage ?? AppStrings.somethingWentWrong,
+                style: AppTextStyle.h2,
+              ),
+              const SizedBox(height: 50),
+            ],
             const Icon(
               Icons.replay,
               size: AppSpacing.medium60,
