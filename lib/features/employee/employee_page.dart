@@ -55,7 +55,10 @@ class _EmployeePageState extends State<EmployeePage> {
               valueListenable: _controller.state,
               builder: (_, state, __) => switch (state) {
                 LoadingState() => const ShowLoadingWidget(),
-                ErrorState() => ShowErrorWidget(onRetry: _onRetry),
+                ErrorState() => ShowErrorWidget(
+                    onRetry: _onRetry,
+                    errorMessage: state.error.message,
+                  ),
                 SuccessState<List<EmployeeModel>>() =>
                   Expanded(child: EmployeeListWidget(data: state.data)),
                 BaseState() => const SizedBox.shrink(),

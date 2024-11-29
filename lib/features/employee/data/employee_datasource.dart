@@ -4,6 +4,7 @@ import '../../../core/client/client.dart';
 import '../../../core/errors/default_exception.dart';
 import '../../../core/helpers/helpers.dart';
 import '../../../core/states/result.dart';
+import '../../../core/values/values.dart';
 import '../mapper/employee_mapper.dart';
 import '../models/models.dart';
 
@@ -28,7 +29,9 @@ class EmployeeDatasourceImpl implements EmployeeDatasource {
 
       return Success(employees);
     } on DioException catch (error) {
-      final exception = DefaultException(message: error.message!);
+      final exception = DefaultException(
+        message: error.message ?? AppStrings.somethingWentWrong,
+      );
 
       return Failure(exception);
     } catch (error) {

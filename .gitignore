@@ -39,6 +39,7 @@ migrate_working_dir/
 
 .env
 dev.env
+.env.dev.json
 
 # Symbolication related
 app.*.symbols
