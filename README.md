@@ -53,6 +53,23 @@ git clone https://github.com/seu-usuario/desafio_mobile.git
 ```bash
 cd employees
 ```
+
+### 3. Crie o arquivo de configuração de ambiente
+Antes de rodar a aplicação, é necessário criar um arquivo de configuração local para as variáveis de ambiente:
+
+Crie o arquivo .env.dev.json na raiz do projeto.
+  - O arquivo **`.env.dev.json`* não será versionado, pois está listado no .gitignore.
+  - Pode usar o arquivo **`.env.exemplo.json`** como base para criar o seu .env.dev.json.
+  - O arquivo **.env.exemplo.json** está presente no repositório e contém o formato necessário. 
+- Substitua "https://your-api-url.com" pela URL base da API do Json server.
+
+Exemplo:
+```base
+{
+  "BASE_URL": "https://your-api-url.com"
+}
+```
+
 ### 4. Configure o Json Rest Server
 - Use o comando abaixo para ativar:
 ```bash
