@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../../core/helpers/di.dart';
 import '../../core/values/values.dart';
-import '../home/home_page.dart';
+import '../employee/employee_page.dart';
 import 'splash_controller.dart';
 import 'widgets/widgets.dart';
 
@@ -22,7 +23,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    _controller = SplashControllerImpl()
+    _controller = getIt.get<SplashController>()
       ..init(duration: _duration, vsync: this)
       ..startAnimation();
 
@@ -45,7 +46,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: _transitionDuration,
-        pageBuilder: (_, __, ___) => const HomePage(),
+        pageBuilder: (_, __, ___) => const EmployeePage(),
         transitionsBuilder: (_, animation, __, child) {
           return FadeTransition(opacity: animation, child: child);
         },
