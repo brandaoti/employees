@@ -1,3 +1,4 @@
+export 'custom_bar_widget.dart';
 export 'show_error_widget.dart';
 export 'search_field_widget.dart';
 export 'show_loading_widget.dart';
